@@ -1,4 +1,4 @@
-/* General Styles */
+/* 通用样式（适用于所有屏幕大小） */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -79,7 +79,6 @@ main {
     padding: 20px;
 }
 
-/* Recommend section */
 .recommend {
     margin-bottom: 20px;
 }
@@ -89,9 +88,9 @@ main {
     color: black;
 }
 
-/* 300x200矩形占位符 */
 .rectangle-placeholder {
-    width: 1050px;
+    width: 100%;
+    max-width: 1050px;
     height: 200px;
     background-color: #d3d3d3;
     border: 2px solid #ccc;
@@ -128,4 +127,70 @@ footer {
     background-color: #e0e0e0;
     padding: 10px;
     text-align: center;
+}
+
+/* 大屏幕样式（桌面屏幕，大于 1024px） */
+@media (min-width: 1025px) {
+    header {
+        justify-content: space-between;
+    }
+
+    .category-list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .rectangle-placeholder {
+        width: 1050px;
+    }
+}
+
+/* 中屏幕样式（平板屏幕，600px - 1024px） */
+@media (min-width: 600px) and (max-width: 1024px) {
+    header .header-icons {
+        gap: 10px;
+    }
+
+    .category-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .rectangle-placeholder {
+        width: 80%;
+    }
+}
+
+/* 小屏幕样式（手机屏幕，小于 600px） */
+@media (max-width: 599px) {
+    header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header .search-bar {
+        margin-top: 10px;
+    }
+
+    header .header-icons {
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+        margin-top: 10px;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+    }
+
+    .category-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .rectangle-placeholder {
+        width: 90%;
+        height: 150px;
+    }
+
+    main {
+        padding: 10px;
+    }
 }
