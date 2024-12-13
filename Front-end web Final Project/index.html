@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Taylor Swift - A Musical Journey</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2f3a5a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            height: 100vh;
+            gap: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3d4a6a;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .social-icons a svg {
+            width: 40px;
+            height: 40px;
+            fill: white; /* 默认白色 */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icons a svg:hover {
+            transform: scale(1.1); 
+            fill: #dcdcdc; 
+        }      
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-icon a svg {
+            width: 40px;
+            height: 40px;
+            fill: white; /* 默认白色 */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logo-icon a svg:hover {
+            transform: scale(1.1); 
+            fill: #dcdcdc; 
+        }        
+
+
+        body.light-theme .logo img {
+            filter: brightness(0) invert(0); /* 更改为深色 */
+        }
+
+        .header img {
+            width: 100px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 40px 60px;
+        }
+
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 40px;
+        }
+
+        .title {
+            font-family: 'Signpainter', cursive;
+            font-size: 3vw; 
+            margin-bottom: 15px;
+        }
+
+        .description {
+            font-size: 1.2vw; 
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .start-button {
+            background-color: #ffffff;
+            color: #2f3a5a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 2vw;
+            font-family: 'Signpainter', cursive;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .start-button:hover {
+            background-color: grey;
+        }
+
+        .image-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+        }
+
+        .profile-image {
+            width: 80%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        #gallery {
+            display: flex;
+            justify-content: stretch;
+            width: 100%;
+        }
+
+        .gallery-button {
+            height: 55em;
+            width: 15%;
+            border: none;
+            padding: 0;
+            margin: 0;
+            transition: 0.5s;
+        }
+
+        .gallery-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-button.selected {
+            width: 100%;
+        }
+
+        #dynamic-content {
+            display: grid;
+            gap: 40px;
+            padding: 40px 60px;
+            grid-template-columns: 1fr 1fr;
+            background-color: inherit;  
+            color: inherit;             
+            border-radius: 0px;
+            margin-top: 20px;
+        }
+
+        #youtube-title {
+            font-family: 'Signpainter', cursive;
+            font-size: 3em; 
+            margin: 40px 60px 20px 100px;
+            display: none;
+        }
+
+        #youtube-videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 10fr));
+            gap: 30px;
+            margin-top: 20px;
+            padding: 0 100px;
+        }
+
+        .video {
+            border: 0px ;
+            border-radius: 20px;
+            background: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 0px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 280px;
+            border-radius: 4px;
+        }
+
+        #dynamic-content .text-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-left: 40px;
+        }
+
+        #dynamic-content .image-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+        }
+
+        #dynamic-content img {
+            width: 80%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .footer {
+            background-color: #3d4a6a;
+            color: inherit;           
+            text-align: center;
+            padding: 15px;
+            font-size: 1.2vw; 
+        }
+
+        .footer a {
+            color: inherit;           
+            text-decoration: underline;
+        }
+
+        .footer a:hover {
+            color: yellow;
+            text-decoration: none;
+        }
+
+        /* Media Queries */
+    @media (max-width: 1200px) {
+        .content {
+            grid-template-columns: 1fr;
+            padding: 20px;
+        }
+
+        .social-icons a svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .logo-icon a svg {
+            width: 80px;
+            height: 40px;
+        }
+
+        .text-section {
+            padding: 0;
+        }
+
+        .title {
+            font-size: 2rem;
+        }
+
+        .description {
+            font-size: 1rem;
+        }
+
+        .gallery-button{
+            height:40em;
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        .social-icons a svg {
+            width: 25px;
+            height: 25px;
+        }
+
+        .logo-icon a svg {
+            width: 50px;
+            height: 25px;
+        }
+
+        .start-button {
+            font-size: 1rem;
+            padding: 8px 16px;
+        }
+
+        iframe {
+            height: 200px;
+        }
+
+        .gallery-button {
+            height: 20em;
+        }
+        #dynamic-content {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+        .header svg {
+            width: 60px;
+        }
+
+        .social-icons a svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logo-icon a svg {
+            width: 40px;
+            height: 20px;
+        }
+
+        .title {
+            font-size: 1.5rem;
+        }
+
+        .description {
+            font-size: 0.9rem;
+        }
+
+        .start-button {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+        }
+        .gallery-button {
+            height: 20em;
+        }
+    }
+    </style>
+</head>
+<header class="header">
+    <!-- Logo svg -->
+    <div class="logo-icon">
+        <a  target="_blank">
+            <svg class="TS-icon" width="40px" height="40px" viewBox="0 0 667.88 643.25" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <title>TSlogo</title>
+                <style type="text/css"> .st0{fill:none;} </style>
+                <g>
+                    <path class="st0" d="M0,0h48v48H0V0z"/>
+                    <path d="m0,0h399.06c-2.89,8.91-5.77,17.82-8.66,26.73-52.2.13-104.41.25-156.61.38-.13,139.67-.25,279.34-.38,419.01h-67.39c.25-139.8.5-279.59.75-419.39-52.2.13-104.41.25-156.61.38C6.78,18.07,3.39,9.04,0,0Z"></path><path d="m518.02,388.52c10.88,4.05,21.07,7.85,33.88,13.55,7.23,3.22,19.84,9.06,34.64,17.32,13.04,7.28,21.65,13.01,29.74,19.36,1.36,1.07,2.38,1.89,2.63,2.1,4.95,4.03,14.55,12.28,24.85,24.85,3.23,3.95,5.74,7.03,8.66,11.67,3.49,5.56,5.64,10.28,6.78,12.8,2.37,5.25,3.76,9.39,4.14,10.54,1,3.04,3.24,9.91,4.14,17.69,1.06,9.2-.15,16.23-1.51,23.72-1.68,9.31-4.61,24.73-15.47,41.17-1.74,2.64-5.61,8.21-11.6,14.39-8,8.25-17.42,15.12-28.27,20.61-16.64,8.43-34.58,14.7-53.81,18.8-19.23,4.1-39.66,6.16-61.26,6.16-42.79,0-78.12-8.32-105.99-24.96-20.11-12.01-31.52-26.22-34.69-30.08-16.32-19.89-23.38-40.05-26.6-52.12l41.79-7.91c1.5,7.29,4.49,17.86,10.92,29.36.72,1.28,3.07,5.43,6.78,10.54,11.96,16.5,25.63,25.97,28.99,28.24,16.26,10.95,31.12,14.73,39.56,16.8,13.5,3.31,23.95,3.67,33.09,3.93,22.98.66,47.32,1.36,72.29-12.07,2.76-1.48,15.47-8.49,27.86-21.84,5.1-5.49,9.74-10.59,13.18-18.82,3.07-7.37,3.71-13.71,4.52-21.84.91-9.12,1.64-14.13,0-20.71-1.4-5.61-3.69-9.48-5.65-12.8-4.11-6.97-8.45-11.25-14.31-16.94-8.6-8.36-16.1-13.53-17.69-14.68-7.08-5.11-12.6-7.72-23.34-12.8-10.23-4.84-18.04-7.77-27.48-11.29-8.19-3.06-19.02-6.89-32-10.92-6.9-2.64-13.8-5.27-20.71-7.91-7.28-2.25-16.66-5.35-27.48-9.41-7.73-2.9-16.73-6.31-28.24-11.67-7.92-3.69-16.82-7.87-27.86-14.68-6.94-4.28-14.68-9.1-23.72-16.94-8.07-7-14.91-12.94-21.08-22.96-6.25-10.16-8.54-19.2-10.54-27.11-1.85-7.3-4.28-16.92-3.76-28.99.74-17.29,7.11-29.7,12.05-39.32,3.87-7.54,12.61-22.14,28.2-36.63,12.32-11.45,28.95-20.96,49.92-28.52,20.96-7.56,44.18-11.34,69.69-11.34s79.94-.07,128.53,38.1c20.05,15.75,32.51,32.99,39.51,44.21-13.18,4.77-26.35,9.54-39.53,14.31-8.82-14.59-24.58-35.78-50.45-52.33-8.37-5.36-22.58-14.26-43.44-18.58-14.73-3.05-26.07-2.42-36.75-1.75-18.9,1.18-50.09,3.14-74.92,23.72-4.31,3.57-12.6,10.58-18.82,22.59-4.84,9.32-6.36,17.66-7.15,22.21-.88,5.03-2.02,11.92-.75,20.71,1.19,8.2,3.79,13.31,4.52,14.68,1.41,2.67,2.79,4.54,4.52,6.78,6.15,7.97,9.94,12.88,14.68,17.32,6.37,5.97,12.37,8.95,24.09,14.68,3.49,1.7,8.87,4.24,29.74,12.42,9.98,3.92,20.13,7.89,34.64,13.18,15.03,5.48,14.92,5.15,26.35,9.41Z"></path></svg>
+                </g>
+            </svg>
+        </a>
+    </div>   
+
+    <div class="social-icons">
+        <a href="https://www.instagram.com/taylorswift/" target="_blank">
+            <svg class="instagram-icon" width="40px" height="40px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <title>Instagram</title>
+                <style type="text/css"> .st0{fill:none;} </style>
+                <g>
+                            <path class="st0" d="M0,0h48v48H0V0z"/>
+                            <path d="M36,4H12c-4.4,0-8,3.6-8,8v24c0,4.4,3.6,8,8,8h24c4.4,0,8-3.6,8-8V12C44,7.6,40.4,4,36,4z M24,34c-5.5,0-10-4.5-10-10
+                            s4.5-10,10-10s10,4.5,10,10S29.5,34,24,34z M35,15c-1.1,0-2-0.9-2-2c0-1.1,0.9-2,2-2s2,0.9,2,2C37,14.1,36.1,15,35,15z"/>
+                </g>
+            </svg>
+        </a>
+
+            <!-- Facebook svg -->
+        <a href="https://www.facebook.com/TaylorSwift/" target="_blank">
+            <svg class="facebook-icon" width="40px" height="40px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <path  d="M30.996 16.091c-0.001-8.281-6.714-14.994-14.996-14.994s-14.996 6.714-14.996 14.996c0 7.455 5.44 13.639 12.566 14.8l0.086 0.012v-10.478h-3.808v-4.336h3.808v-3.302c-0.019-0.167-0.029-0.361-0.029-0.557 0-2.923 2.37-5.293 5.293-5.293 0.141 0 0.281 0.006 0.42 0.016l-0.018-0.001c1.199 0.017 2.359 0.123 3.491 0.312l-0.134-0.019v3.69h-1.892c-0.086-0.012-0.185-0.019-0.285-0.019-1.197 0-2.168 0.97-2.168 2.168v2.812h4.159l-0.665 4.336h-3.494v10.478c7.213-1.174 12.653-7.359 12.654-14.814v-0z"/>
+            </svg>
+        </a>
+            <!-- Tiktok svg -->
+        <a href="https://www.tiktok.com/@taylorswift" target="_blank">
+            <svg class="tiktok-icon" width="40px" height="40px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                <title>TikTok</title>
+                <path d="M16.656 1.029c1.637-0.025 3.262-0.012 4.886-0.025 0.054 2.031 0.878 3.859 2.189 5.213l-0.002-0.002c1.411 1.271 3.247 2.095 5.271 2.235l0.028 0.002v5.036c-1.912-0.048-3.71-0.489-5.331-1.247l0.082 0.034c-0.784-0.377-1.447-0.764-2.077-1.196l0.052 0.034c-0.012 3.649 0.012 7.298-0.025 10.934-0.103 1.853-0.719 3.543-1.707 4.954l0.020-0.031c-1.652 2.366-4.328 3.919-7.371 4.011l-0.014 0c-0.123 0.006-0.268 0.009-0.414 0.009-1.73 0-3.347-0.482-4.725-1.319l0.040 0.023c-2.508-1.509-4.238-4.091-4.558-7.094l-0.004-0.041c-0.025-0.625-0.037-1.25-0.012-1.862 0.49-4.779 4.494-8.476 9.361-8.476 0.547 0 1.083 0.047 1.604 0.136l-0.056-0.008c0.025 1.849-0.050 3.699-0.050 5.548-0.423-0.153-0.911-0.242-1.42-0.242-1.868 0-3.457 1.194-4.045 2.861l-0.009 0.030c-0.133 0.427-0.21 0.918-0.21 1.426 0 0.206 0.013 0.41 0.037 0.61l-0.002-0.024c0.332 2.046 2.086 3.59 4.201 3.59 0.061 0 0.121-0.001 0.181-0.004l-0.009 0c1.463-0.044 2.733-0.831 3.451-1.994l0.010-0.018c0.267-0.372 0.45-0.822 0.511-1.311l0.001-0.014c0.125-2.237 0.075-4.461 0.087-6.698 0.012-5.036-0.012-10.060 0.025-15.083z"/>
+            </svg>
+        </a>
+
+            <!-- Spotify Icon  -->
+        <a href="https://open.spotify.com/artist/06HL4z0CvFAxyc27GXpf02" target="_blank">
+        <svg class="spotify-icon" width="40px" height="40px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <title>Spotify</title>
+            <path d="M16 0c-8.803 0-16 7.197-16 16s7.197 16 16 16c8.803 0 16-7.197 16-16s-7.12-16-16-16zM23.36 23.12c-0.319 0.479-0.881 0.64-1.36 0.317-3.76-2.317-8.479-2.797-14.083-1.52-0.557 0.165-1.037-0.235-1.199-0.72-0.156-0.557 0.24-1.036 0.719-1.197 6.084-1.36 11.365-0.803 15.521 1.76 0.563 0.24 0.64 0.88 0.401 1.36zM25.281 18.719c-0.401 0.563-1.12 0.803-1.683 0.401-4.317-2.641-10.88-3.437-15.916-1.839-0.641 0.156-1.365-0.161-1.521-0.803-0.161-0.64 0.156-1.359 0.797-1.52 5.844-1.761 13.041-0.876 18 2.161 0.484 0.24 0.724 1.041 0.323 1.599zM25.443 14.24c-5.125-3.043-13.683-3.36-18.563-1.839-0.801 0.239-1.599-0.24-1.839-0.964-0.239-0.797 0.24-1.599 0.959-1.839 5.683-1.681 15.041-1.359 20.964 2.161 0.719 0.401 0.957 1.36 0.557 2.079-0.401 0.563-1.36 0.801-2.079 0.401z"/>
+        </svg>
+        </a>
+
+        </div>
+    </header>
+
+<div class="content">
+    <div class="text-section">
+        <h2 class="title">Taylor Swift - A Musical Journey</h2>
+        <p class="description">Taylor Swift is a globally renowned singer-songwriter known for her genre-spanning music and powerful storytelling. Rising to fame with her 2006 country debut, she evolved into a pop and indie-folk sensation with albums like Fearless, Red, 1989, and Folklore. Swift’s heartfelt lyrics and ever-changing musical style have earned her numerous awards, including 12 Grammys. Beyond music, she’s an advocate for artists’ rights and a cultural icon, inspiring millions worldwide.</p>
+        <button class="start-button" onclick="window.open('https://www.taylorswift.com/', '_blank')">Go to Her Official Website</button>
+    </div>
+    <div class="image-section">
+        <img src="./images/TaylorSwift.jpg" alt="Taylor Swift" class="profile-image">
+    </div>
+</div>
+
+    <div id="gallery">
+        <!-- 11 Buttons for 11 Albums -->
+        <button class="gallery-button" data-id="1"><img src="./images/image1.jpg" alt="Debut Album"></button>
+        <button class="gallery-button" data-id="2"><img src="./images/image2.jpg" alt="Fearless Album"></button>
+        <button class="gallery-button" data-id="3"><img src="./images/image3.jpg" alt="Speak Now Album"></button>
+        <button class="gallery-button" data-id="4"><img src="./images/image4.jpg" alt="Red Album"></button>
+        <button class="gallery-button" data-id="5"><img src="./images/image5.jpg" alt="1989 Album"></button>
+        <button class="gallery-button" data-id="6"><img src="./images/image6.jpg" alt="Reputation Album"></button>
+        <button class="gallery-button" data-id="7"><img src="./images/image7.jpg" alt="Lover Album"></button>
+        <button class="gallery-button" data-id="8"><img src="./images/image8.jpg" alt="Folklore Album"></button>
+        <button class="gallery-button" data-id="9"><img src="./images/image9.jpg" alt="Evermore Album"></button>
+        <button class="gallery-button" data-id="10"><img src="./images/image10.jpg" alt="Midnights Album"></button>
+        <button class="gallery-button" data-id="11"><img src="./images/image11.jpg" alt="TTPD Album"></button>
+    </div>
+
+    <div id="dynamic-content" style="display: none;">
+        <div class="text-section">
+            <h2 id="dynamic-title" class="title"></h2>
+            <p id="dynamic-description" class="description"></p>
+        </div>
+        <div class="image-section">
+            <img id="dynamic-image" src="" alt="Dynamic Image">
+        </div>
+    </div>
+    
+    <h2 id="youtube-title" class="title" style="display: none;"></h2>
+    <div id="youtube-videos"></div>
+    
+    <footer class="footer">
+        To know more about Taylor Swift: 
+        <a href="https://en.wikipedia.org/wiki/Taylor_Swift" target="_blank">https://en.wikipedia.org/wiki/Taylor_Swift</a>
+    </footer>
+
+    <audio id="bgm-player" loop></audio>
+
+    <script>
+       const apiKey = 'AIzaSyCus27Dgbon_2yHdC2xvt_cXHG9SLpaDjA';
+       const albumData = {
+    1: { title: "Debut", 
+    description: "This first album highlights Taylor's ability to mix relevant narrative with classic country components. Simple but powerful I-IV-V chord progressions found in songs like 'Tim McGraw' reflect the emotional integrity in her lyrics. Her use of major keys in songs like 'Our Song' gives the album a lively, young feel that precisely captures the innocence and wonder of teenage love.", 
+    image: "./images/debutAlbum.jpg", 
+    query: "Taylor Swift Live debut 2006 Live", 
+    background: "#0C1A0B", 
+    color: "#A9CBAA", 
+    headerColor: "#A9CBAA", 
+    buttonColor: "#A9CBAA",
+    svgColor:"#0C1A0B"
+    },
+
+    2: { title: "Fearless",
+    description: "Fearless is the album in which Taylor begins to blend country and pop music more seamlessly, thereby crafting themes that are universally relatable. The track 'Love Story' is a prime example of her utilization of the I-V-vi-IV progression, which is a well-liked choice in pop music and is known for producing an anthemic and uplifting atmosphere. Through her exploration of bridge modulation, particularly in the song 'You Belong with Me,' she creates an atmosphere of emotional tension, thereby demonstrating her development as a songwriter", 
+    image: "./images/fearlessAlbum.jpg", 
+    query: "Taylor Swift Fearless live", 
+    background: "#1E151A", 
+    color: "#FDDAA6", 
+    headerColor: "#FDDAA6", 
+    buttonColor: "#FDDAA6",
+    svgColor:"#1E151A"
+    },
+
+    3: { title: "Speak Now", 
+    description: "Speak Now is notable for its intricate lyrics, as well as the fact that Taylor single-handedly composed all of the songs on the album. This album is characterized by its heavy reliance on storytelling through the use of a variety of major and minor keys. This is especially evident in the song 'Back to December,' in which she employs minor chords to evoke a sense of regret with her listeners. The song 'Enchanted' demonstrates her command of crescendo and dynamics, which adds drama to the emotional buildup that the song is exhibiting.", 
+    image: "./images/speaknowAlbum.jpg", 
+    query: "Taylor Swift Speak Now live", 
+    background: "#201622", 
+    color: "#D6BADC", 
+    headerColor: "#D6BADC", 
+    buttonColor: "#D6BADC",
+    svgColor:"#201622"
+    },
+
+    4: { title: "Red", 
+    description: "Red is a sonic departure, featuring a more pop-rock influence. Songs like 'All Too Well' showcase complex, narrative songwriting combined with a sophisticated chord progression that moves beyond the basic structures found in her earlier work. She also uses a mix of electric and acoustic sounds, such as in 'I Knew You Were Trouble,' where the drop in the chorus features a sudden shift in dynamics, mirroring the chaotic emotions in the lyrics.", 
+    image: "./images/redAlbum.jpg", 
+    query: "Taylor Swift Red album live", 
+    background: "#C8B2A2", 
+    color: "#72333C", 
+    headerColor: "#72333C", 
+    buttonColor: "#72333C",
+    svgColor:"#C8B2A2" },
+
+    5: { title: "1989", 
+    description: "Her full embrace of synth-pop on 1989 is marked by polished production and synthesized beats. 'Blank Space' features a repetitive I-IV-vi-V progression, which reflects the polished and catchy nature of the pop genre. The album frequently employs syncopated rhythms and staccato vocal delivery, as in 'Shake It Off,' creating a bouncy, danceable feel that aligns with the upbeat theme of self-reinvention.", 
+    image: "./images/1989Album.jpg", 
+    query: "Taylor Swift 1989 album live", 
+    background: "#d7eef2", 
+    color: "#123456", 
+    headerColor: "#123456", 
+    buttonColor: "#123456",
+    svgColor:"#d7eef2"},
+
+    6: { title: "Reputation", 
+    description: "Reputation gives the album a sense of intensity by exploring darker subjects with a production mostly depending on minor keys and deep bass lines. Taylor builds suspense in 'Look What You Made Me Do,' by using a simple, almost spoken delivery over a minor progression. One of her most audacious musical statements, the song's rhythmic focus on the downbeat also reflects her frustration and anger.", 
+    image: "./images/reputationAlbum.jpg",
+    query: "Taylor Swift Reputation", 
+    background: "#CFCFCF", 
+    color: "#333333", 
+    headerColor: "#333333", 
+    buttonColor: "#333333",
+    svgColor:"#CFCFCF" },
+
+    7: { title: "Lover", 
+    description: "Lover is full of vivid, major chords and rich instrumentation, especially in the title track 'Lover,' which employs a classic waltz rhythm (3/4 time signature), returning to a simpler sound. The song feels timeless because of the nostalgic rhythm and sincere lyrics. Her use of layered synths and dynamic changes in the chorus in 'Cruel Summer' highlights her ability to mix emotional sensitivity with appealing pop hooks.", 
+    image: "./images/loverAlbum.jpg", 
+    query: "Taylor Swift Lover album Live", 
+    background: "#3D2D34", 
+    color: "#FBB3D1", 
+    headerColor: "#FBB3D1", 
+    buttonColor: "#FBB3D1",
+    svgColor:"#3D2D34"},
+
+    8: { title: "Folklore", 
+    description: "With her album Folklore, which employs more stripped-down production and sophisticated chord progressions, Taylor is experimenting with indie-folk. She performed the song 'Exile,' in tandem with Bon Iver, with an interesting key change between the verses and the chorus that accentuates the tension and the dialogue between the two vocalists. As shown by tracks like 'Cardigan,' the album creates a soundscape that is both intimate and almost ethereal by means of acoustic textures and reflective lyrics.", 
+    image: "./images/folkloreAlbum.jpg", 
+    query: "Folklore Taylor Swift Live", 
+    background: "#000000",  
+    color: "#D5D5D5", 
+    headerColor: "#D5D5D5", 
+    buttonColor: "#D5D5D5",
+    svgColor:"#000000" },
+
+    9: { title: "Evermore", 
+    description: "As a sister album to Folklore, Evermore continues with indie-folk but delves deeper into storytelling. In 'Willow,' she uses modal interchange, incorporating both major and minor chords to give the song a mystical, winding quality. The use of piano and strings in 'Champagne Problems' highlights the raw, somber nature of the lyrics, with minor chords underscoring the theme of heartbreak.", 
+    image: "./images/evermoreAlbum.jpg", 
+    query: "Taylor Swift Evermore Live", 
+    background: "#2E2427", 
+    color: "#E0C9AF", 
+    headerColor: "#E0C9AF", 
+    buttonColor: "#E0C9AF",
+    svgColor:"#2E2427" },
+
+    10: { title: "Midnights", 
+    description: "Midnights explores themes of introspection, late-night reflection, and emotional complexity, with a sound that blends synth-pop with alternative and indie influences. In 'Anti-Hero,' Taylor uses a haunting minor key to convey vulnerability, paired with a pulsing rhythm that mirrors the underlying tension of self-doubt. Tracks like 'Lavender Haze' feature layered synths and an echoing bass line, creating an ethereal soundscape that captures the dreamy, introspective nature of the album. The album frequently plays with vocal effects and reverb, giving tracks a sense of depth and intimacy, particularly in 'Snow on the Beach,' where the subtle harmonies with Lana Del Rey enhance the song’s surreal quality. This album’s production leans heavily on electronic textures, reflecting Taylor’s continued exploration of complex soundscapes and emotional depth.", 
+    image: "./images/midnightsAlbum.jpg", 
+    query: "Taylor Swift Midnights Live", 
+    background: "#1F2E43", 
+    color: "#DFEDFD", 
+    headerColor: "#DFEDFD", 
+    buttonColor: "#DFEDFD",
+    svgColor:"#1F2E43" },
+
+    11: { title: "TTPD Album", 
+    description: "With The Tortured Poets Department, Taylor Swift tries something new in her career. The album mixes alternative, indie, and folk styles with moody, introspective soundscapes. This album goes into great detail in its lyrics, which tell stories about complicated emotions, heartbreak, and the struggles of the creative mind. Songs like 'Silent Suffering' use simple acoustic arrangements and a minor key to create a haunting mood that shows how heavy it is to think about oneself. Taylor adds whispered vocals on top of soft, ambient synths and reverb-drenched guitar in 'Echoes in the Dark,' making a feeling of loneliness and sadness that hits home for many listeners.", 
+    image: "./images/TTPDAlbum.jpg", 
+    query: "Taylor Swift The Tortured Poets Department Live", 
+    background: "#EEEDEB", 
+    color: "#9E958B", 
+    headerColor: "#9E958B", 
+    buttonColor: "#9E958B",
+    svgColor:"#EEEDEB" },
+    };
+    
+
+    const bgmData = {
+        1: "./audio/debut.mp3",
+        2: "./audio/fearless2.mp3",
+        3: "./audio/speaknow.mp3",
+        4: "./audio/red.mp3",
+        5: "./audio/1989.mp3",
+        6: "./audio/reputation2.mp3",
+        7: "./audio/lover.mp3",
+        8: "./audio/folklore.mp3",
+        9: "./audio/evermore.mp3",
+        10: "./audio/midnights2.mp3",
+        11: "./audio/TTPD.mp3"
+    };
+
+let nextPageToken = ''; 
+
+function resetSite() {
+    const defaultStyles = {
+        background: "#2f3a5a",  
+        color: "#ffffff",      
+        headerColor: "#3d4a6a", 
+        buttonColor: "#ffffff",
+        svgColor: "#ffffff"    
+    };
+
+    document.body.style.backgroundColor = defaultStyles.background;
+    document.body.style.color = defaultStyles.color;
+
+    const header = document.querySelector('.header');
+    const footer = document.querySelector('.footer');
+    const dynamicContent = document.getElementById("dynamic-content");
+    const youtubeTitle = document.getElementById("youtube-title");
+    const youtubeVideos = document.getElementById("youtube-videos");
+
+    header.style.backgroundColor = defaultStyles.headerColor;
+    footer.style.backgroundColor = defaultStyles.headerColor;
+    footer.style.color = defaultStyles.color;
+    dynamicContent.style.display = "none";
+    youtubeTitle.style.display = "none";
+    youtubeVideos.innerHTML = "";
+
+    const svgIcons = document.querySelectorAll('.social-icons svg');
+    svgIcons.forEach(svg => {
+        svg.style.fill = defaultStyles.svgColor; 
+    });
+
+
+    const logoSvg = document.querySelector('.logo-icon svg');
+    if (logoSvg) {
+        logoSvg.style.fill = defaultStyles.svgColor; 
+    }
+
+    const startButton = document.querySelector('.start-button');
+    if (startButton) {
+        startButton.style.backgroundColor = defaultStyles.buttonColor;
+        startButton.style.color = defaultStyles.background;
+    }
+
+    document.getElementById("dynamic-title").textContent = "";
+    document.getElementById("dynamic-description").textContent = "";
+    document.getElementById("dynamic-image").src = "";
+
+    document.querySelectorAll('.gallery-button').forEach(button => {
+        button.classList.remove('selected');
+    });
+}
+
+const logoElement = document.querySelector('.logo-icon img, .logo-icon svg');
+if (logoElement) {
+    logoElement.addEventListener('click', resetSite);
+}
+
+function updateSiteStyles(album) {
+    document.body.style.backgroundColor = album.background;
+    document.body.style.color = album.color;
+
+    const header = document.querySelector('.header');
+    const footer = document.querySelector('.footer');
+    const dynamicContent = document.getElementById("dynamic-content");
+
+    header.style.backgroundColor = album.headerColor;
+    footer.style.backgroundColor = album.color;
+    footer.style.color = album.background;
+    dynamicContent.style.backgroundColor = album.headerColor;
+    dynamicContent.style.color = album.background;
+
+    const svgIcons = document.querySelectorAll('.social-icons svg');
+    svgIcons.forEach(svg => {
+        svg.style.fill = album.svgColor || album.color; 
+    });
+
+    const logoSvg = document.querySelector('.logo-icon svg');
+    
+    logoSvg.style.fill = album.svgColor || album.color;
+
+    const startButton = document.querySelector('.start-button');
+    if (startButton) {
+        startButton.style.backgroundColor = album.buttonColor;
+        startButton.style.color = album.background;
+    }
+}
+
+function loadYouTubeVideos(query) {
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${encodeURIComponent(query)}&key=${apiKey}&regionCode=US&order=date&maxResults=9&pageToken=${nextPageToken}`;
+    const videoContainer = document.getElementById('youtube-videos');
+
+    videoContainer.innerHTML = ''; 
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!data.items || data.items.length === 0) {
+                videoContainer.innerHTML = `<p>No videos found for "${query}".</p>`;
+                return;
+            }
+
+            nextPageToken = data.nextPageToken || '';
+
+            const shuffledVideos = data.items.sort(() => Math.random() - 0.5);
+
+            shuffledVideos.slice(0, 9).forEach(video => {
+                const videoId = video.id.videoId;
+                if (!videoId) return; 
+
+               
+                const videoCard = document.createElement('div');
+                videoCard.classList.add('video');
+                videoCard.innerHTML = `
+                    <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                `;
+                videoContainer.appendChild(videoCard);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching YouTube videos:', error);
+            videoContainer.innerHTML = `<p>Failed to load videos. Error: ${error.message}</p>`;
+        });
+}
+
+
+function playBGM(albumId) {
+        const bgmPlayer = document.getElementById("bgm-player");
+        const bgmSrc = bgmData[albumId];
+        
+        if (bgmSrc) {
+            bgmPlayer.src = bgmSrc; 
+            bgmPlayer.play(); 
+        } else {
+            bgmPlayer.pause();
+            bgmPlayer.src = "";
+        }
+    }
+
+    document.querySelectorAll('.gallery-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const albumId = button.dataset.id;
+            const album = albumData[albumId];
+
+            if (album) {
+                document.getElementById("dynamic-title").textContent = album.title;
+                document.getElementById("dynamic-description").textContent = album.description;
+                document.getElementById("dynamic-image").src = album.image;
+
+                updateSiteStyles(album);
+
+                document.getElementById("dynamic-content").style.display = "grid";
+
+                document.querySelector('.gallery-button.selected')?.classList.remove('selected');
+                button.classList.add('selected');
+
+                const youtubeTitle = document.getElementById("youtube-title");
+                youtubeTitle.textContent = `Live Performances of ${album.title}`;
+                youtubeTitle.style.display = "block";
+
+                loadYouTubeVideos(album.query);
+                playBGM(albumId);
+                
+            }
+        });
+    });
+
+    document.querySelector('.logo-icon').addEventListener('click', () => {
+        resetSite();
+        const bgmPlayer = document.getElementById("bgm-player");
+        bgmPlayer.pause();
+        bgmPlayer.src = "";
+    });
+    document.querySelector('.logo-icon').addEventListener('click', resetSite);
+
+
+    </script>
+</body>
+</html>
