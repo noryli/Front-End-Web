@@ -1,0 +1,140 @@
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+/* 顶部导航 */
+header {
+    background-image: url('header-bg.jpg'); /* 添加背景图片 */
+    background-size: cover;
+    color: #333;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 段落样式 */
+
+p {
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+    margin: 20px;
+}
+
+/* 链接样式 */
+a:link {
+    color: #0000FF; /* 默认链接颜色 */
+}
+
+a:visited {
+    color: #551A8B; /* 已访问链接颜色 */
+}
+
+a:hover {
+    color: #FF6347; /* 悬停链接颜色 */
+}
+
+a:active {
+    color: #FF4500; /* 点击时的链接颜色 */
+}
+
+/* 背景样式 */
+main {
+    background-color: #e0f7fa; /* 主体背景色 */
+    border: 1px solid #ddd; /* 边框样式 */
+    margin: 20px;
+    padding: 20px;
+}
+
+/* 图片样式 */
+img {
+    border-radius: 10px; /* 圆角边框 */
+    box-shadow: 5px 5px 15px #aaa; /* 添加阴影 */
+}
+
+/* 浮动样式 */
+#lucky-float {
+    float: left; /* 左浮动 */
+    margin: 10px;
+}
+
+/* 页面底部样式 */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    position: relative;
+}
+
+footer a {
+    color: #FFA07A;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 页脚导航样式 */
+footer ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+footer ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+/* ID 选择器样式 */
+#footer-links {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    header {
+        text-align: left;
+        padding: 15px;
+    }
+    
+    main {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    img {
+        width: 80%; /* 缩小图片 */
+    }
+
+    footer ul {
+        flex-direction: column; /* 页脚导航变为竖向排列 */
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    main {
+        max-width: 90%;
+        margin: 0 auto; /* 中间对齐 */
+    }
+
+    img {
+        width: 60%; /* 中等屏幕大小 */
+    }
+}
+
+@media (min-width: 1201px) {
+    main {
+        max-width: 70%;
+        margin: 0 auto; /* 中间对齐 */
+    }
+
+    img {
+        width: 50%; /* 大屏幕宽度 */
+    }
+}
